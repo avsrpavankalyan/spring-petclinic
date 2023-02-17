@@ -1,14 +1,16 @@
 ---
-pool: 
+pool:
   name: default
-  vmImage: 'ubuntu-lates'
+  vmImage: 'ubuntu-latest'
 
 trigger:
   - main
 
 steps:
-  - task: maven@3
-    inputs:
-      mavenPOMFile: 'pom.xml'
-      jdkVersionOption: '1.17'
-      goals: 'package'
+  - script: sudo apt install openjdk-17-jdk
+    displayName: 'install java'
+  
+  - script: sudo apt install maven
+    displayName: 'install maven'
+
+  
