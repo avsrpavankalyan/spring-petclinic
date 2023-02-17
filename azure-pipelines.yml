@@ -1,0 +1,14 @@
+---
+pool:
+  name: default
+  vmImage: 'ubuntu-latest'
+
+trigger:
+  - main
+
+steps:
+  - task: maven@3
+    inputs:
+      mavenPOMFile: 'pom.xml'
+      jdkVersionOption: '1.17'
+      goals: 'package'
