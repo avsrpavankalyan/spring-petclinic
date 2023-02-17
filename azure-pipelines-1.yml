@@ -11,7 +11,6 @@ steps:
     inputs:
       mavenPOMFile: 'pom.xml'
       goals: 'package'
-      testResultsFiles: '**/surefire-reports/TEST-*.xml'
       javaHomeOption: 'Path'
       jdkVersionOption: '1.17' 
       jdkDirectory: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
