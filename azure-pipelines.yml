@@ -13,4 +13,11 @@ steps:
   - script: sudo apt install maven
     displayName: 'install maven'
 
+  - task: maven@3
+    inputs:
+      mavenPOMFile: 'pom.xml'
+      goals: 'package'
+      jdkVersionOption: '1.17'
+    displayName: 'package'
+    
   
