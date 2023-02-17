@@ -1,6 +1,7 @@
 ---
-pool:
-  name: 'Azure Pipeline'
+pool: 
+  name: default
+  vmImage: 'ubuntu-lates'
 
 trigger:
   - main
