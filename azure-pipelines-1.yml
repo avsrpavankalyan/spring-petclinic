@@ -7,6 +7,7 @@ trigger:
   - main
 
 steps:
+  - script: sudo apt install maven
   - task: maven@3
     inputs:
       mavenPOMFile: 'pom.xml'
@@ -14,5 +15,4 @@ steps:
       javaHomeOption: 'Path'
       jdkVersionOption: '1.17' 
       jdkDirectory: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
-      mavenVersionOption: 'Path'
-      mavenDirectory: /tmp/apache-maven-3.9.0
+
