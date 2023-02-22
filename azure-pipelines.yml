@@ -5,15 +5,35 @@ pool:
 trigger:
   - main
 
+parameters:
+  - name: goals
+    type: string
+    displayName: maven goals
+    default: 'package'
+    values:
+      - 'package'
+      - 'clean'
+      - 'install'
+      - 'compile'
+  - name: mavenPOMFile
+    displayName: mavenpomfile
+    type: string
+    default: 'pom.xml'
+  - name: jdkversion 
+    type: string
+    displayName: javaversion
+    default: '1.17'
+
+
 steps:
   - task: maven@3
     inputs:
-      mavenPOMFile: 'pom.xml'
-      goals: 'package'
+      mavenPOMFile: "${{ parameters.mavenpomfile }}"
+      goals: "${{ parameters.goals }}"
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       javaHomeOption: 'Path'
-      jdkVersionOption: '1.17' 
+      jdkVersionOption: "${{ parameters.jdkversion }}"
       jdkDirectory: /usr/lib/jvm/java-17-openjdk-amd64
       mavenVersionOption: 'Path'
       mavenDirectory: /opt/maven
