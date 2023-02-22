@@ -19,10 +19,6 @@ parameters:
     displayName: mavenpomfile
     type: string
     default: 'pom.xml'
-  - name: jdkversion 
-    type: string
-    displayName: javaversion
-    default: '1.17'
 
 
 steps:
@@ -33,7 +29,7 @@ steps:
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       javaHomeOption: 'Path'
-      jdkVersionOption: "${{ parameters.jdkversion }}"
+      jdkVersionOption: '1.17'
       jdkDirectory: /usr/lib/jvm/java-17-openjdk-amd64
       mavenVersionOption: 'Path'
       mavenDirectory: /opt/maven
