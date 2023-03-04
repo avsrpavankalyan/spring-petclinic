@@ -11,7 +11,7 @@ pipeline {
             steps {
                 cd spring-petclinic
                 sh 'gradle init'
-                sh 'gradel build'
+                sh 'gradle build'
             }
         }
     }
