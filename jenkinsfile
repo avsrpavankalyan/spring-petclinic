@@ -9,7 +9,6 @@ pipeline {
         }
         stage('BUILD') {
             steps {
-                cd spring-petclinic
                 sh 'gradle init'
                 sh 'gradle build'
             }
