@@ -1,16 +1,21 @@
 pipeline {
-    agent{label 'JAVA_17'}
+    agent { label 'JAVA_17'}
     stages {
-        stage('VCS') {
+        stage(VCS) {
             steps {
-                git url: 'https://github.com/spring-projects/spring-petclinic.git',
+                git url: 'https://github.com/avsrpavankalyan/spring-petclinic.git',
                 branch: 'main'
             }
         }
-        stage('BUILD') {
-            steps {  
+        stage(PACKAGE) {
+            steps {
                 sh './mvnw package'
             }
+        }
+        stage(FACTS) {
+            archiveArtifacts archive: '**/target/spring-petclinic.jar',
+            junit testResults: '**/surefire-reports/TEST-*.xml'
+
         }
     }
 }
