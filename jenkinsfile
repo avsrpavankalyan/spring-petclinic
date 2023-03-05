@@ -13,8 +13,11 @@ pipeline {
             }
         }
         stage(FACTS) {
-            archiveArtifacts archive: '**/target/spring-petclinic.jar',
-            junit testResults: '**/surefire-reports/TEST-*.xml'
+            steps {
+                archiveArtifacts archive: '**/target/spring-petclinic.jar',
+                junit testResults: '**/surefire-reports/TEST-*.xml'
+
+            }
 
         }
     }
