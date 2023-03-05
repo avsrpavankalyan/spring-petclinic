@@ -14,8 +14,7 @@ pipeline {
         }
         stage(FACTS) {
             steps {
-                archiveArtifacts archive: '**/target/spring-petclinic.jar',
-                junit testResults: '**/surefire-reports/TEST-*.xml'
+                archiveArtifacts archive: '**/target/spring-petclinic.jar'
 
             }
 
