@@ -1,23 +1,23 @@
 pipeline {
-    agent{label 'JAVA_17'}
-    triggers { pollSCM ('* * * * *') }
+    agent { label ('JAVA_17') }
+    triggers { pollscm ('* * * * *') }
     stages {
         stage('VCS') {
             steps {
-                git url: 'https://github.com/spring-projects/spring-petclinic.git',
-                branch: 'main'
+                git url: 'https://github.com/avsrpavankalyan/spring-petclinic.git',
+                branch 'main'
             }
         }
-        stage('BUILD') {
-            steps {  
+        stage('MVN PACKAGE') {
+            steps {
                 sh './mvnw package'
             }
         }
-        stage('post BUILD') {
+        stage('SONAR QUBE') {
             steps {
-                archiveArtifacts artifacts: '**/target/spring-petclinic-3.0.0-SNAPSHOT.jar',
-                                 onlyIfSuccessful: true
-                junit testResults: '**/surefire-reports/TEST-*.xml'
+                // performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
+                withSonarQubeEnv('SonarQube') 
+                sh './mvnw clean package sonar:sonar'
             }
         }
     }
