@@ -1,6 +1,5 @@
 pipeline {
     agent { label ('JAVA_17') }
-    triggers { pollSCM ('* * * * *') }
     stages {
         stage('VCS') {
             steps {
@@ -16,8 +15,8 @@ pipeline {
         stage('SONAR QUBE') {
             steps {
                 // performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
-                withSonarQubeEnv('SonarQubekalyan') {
-                    sh './mvnw clean package sonar:sonar'
+                withSonarQubeEnv('SonarQube_kalyanKR') {
+                    sh './mvnw clean package sonar:sonar -Dsonar.organization=avsrpkalyanKR_SonarkQubeavankalyan -Dsonar.projectkey=kalyanKR_SonarkQube'
                 }
             }
         }
