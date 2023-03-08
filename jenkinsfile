@@ -16,8 +16,8 @@ pipeline {
         stage('SONAR QUBE') {
             steps {
                 // performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
-                withSonarQubeEnv('SonarQubekalyan') 
-                sh './mvnw clean package sonar:sonar -Dsonar.organization=avsrpavankalyan -Dsonar.projectkey=avsrpavankalyan_avsrpavankalyan'
+                withSonarQubeEnv('SonarQubekalyan') {
+                    sh './mvnw clean package sonar:sonar'
             }
         }
     }
