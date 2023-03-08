@@ -18,7 +18,12 @@ pipeline {
                 // performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
                 withSonarQubeEnv('SonarQubekalyan') {
                     sh './mvnw clean package sonar:sonar'
+                }
             }
         }
     }
 }
+// performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
+                withSonarQubeEnv('SonarQubekalyan') {
+                    sh './mvnw clean package sonar:sonar'
+                }
