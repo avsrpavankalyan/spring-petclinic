@@ -10,7 +10,29 @@ pipeline {
         stage('MVN PACKAGE') {
             steps {
                 sh './mvnw package'
-            }
+            }  
+        }
+        stage('ARTIFACTORY JFROG') {
+            steps {
+                rtServer (
+                    id: "ARTIFACTORY_SERVER",
+                    url: 'https://kalyankr32.jfrog.io/',
+                    credentialsId: 'JFROG_CREDENTIALS'
+                )
+
+                rtMavenDeployer (
+                    id: "MAVEN_DEPLOYER",
+                    serverId: "ARTIFACTORY_SERVER",
+                    releaseRepo: 'libs-release',
+                    snapshotRepo: 'libs-snapshot'
+                )
+
+                rtMavenResolver (
+                    id: "MAVEN_RESOLVER",
+                    serverId: "ARTIFACTORY_SERVER",
+                    releaseRepo: 'libs-release',
+                    snapshotRepo: 'libs-snapshot'
+                )
         }
         stage('SONAR QUBE') {
             steps {
