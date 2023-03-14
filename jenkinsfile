@@ -1,56 +1,11 @@
 pipeline {
-    agent { label ('JAVA_17') }
+    agent { label (JAVA_17) }
+    triggers { pollSCM (* * * * *) }
     stages {
-        stage('VCS') {
+        stage(VCS) {
             steps {
                 git url: 'https://github.com/avsrpavankalyan/spring-petclinic.git',
-                    branch: 'main'
-            }
-        }
-        stage('MVN PACKAGE') {
-            steps {
-                sh './mvnw package'
-            }  
-        }
-        stage ('Artifactory configuration') {
-            steps {
-                rtServer (
-                    id: "JFROG_CONFIG",
-                    url: 'https://qtkhajamarch23.jfrog.io/artifactory',
-                    credentialsId: '	JFROG_CREDENTIALS'
-                )
-
-                rtMavenDeployer (
-                    id: "MAVEN_DEPLOYER",
-                    serverId: "JFROG_CONFIG",
-                    releaseRepo: 'libs-release',
-                    snapshotRepo: 'libs-snapshot'
-                )
-
-                rtMavenResolver (
-                    id: "MAVEN_RESOLVER",
-                    serverId: "JFROG_CONFIG",
-                    releaseRepo: 'libs-release',
-                    snapshotRepo: 'libs-snapshot'
-                )
-            }
-        }
-        stage('package') {
-            tools {
-                jdk 'JDK_17'
-            }
-            steps {
-                rtMavenRun (
-                    tool: 'MAVEN_DEFAULT',
-                    pom: 'pom.xml',
-                    goals: 'clean install',
-                    deployerId: "MAVEN_DEPLOYER"
-                    
-                )
-                rtPublishBuildInfo (
-                    serverId: "JFROG_CONFIG"
-                )
-                //sh "mvn ${params.MAVEN_GOAL}"
+                git branch: 'build'
             }
         }
     }
