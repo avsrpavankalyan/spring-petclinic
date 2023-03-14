@@ -16,7 +16,7 @@ pipeline {
             steps {
                 sh './mvnw clean verify sonar:sonar \
                 -Dsonar.login=77b046129b28048f70eb1789454bc56bee266e57 \
-                -Dsonar.host.url=https://sonarcloud.io/
+                -Dsonar.host.url=https://sonarcloud.io \
                 -Dsonar.organization=avsrpavankalyan
                 -Dsonar.projectKey=jenkinsdeploy'
             }
