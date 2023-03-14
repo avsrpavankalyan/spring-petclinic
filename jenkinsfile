@@ -14,10 +14,11 @@ pipeline {
         }
         stage(snoarcloud) {
             steps {
-                 // performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
-                withSonarQubeEnv('SONAR_CLOUD') {
-                    sh 'mvn clean package sonar:sonar -Dsonar.organization=JenkinsDeploy-Dsonar.projectKey=JenkinsDeploy'
-                }
+                sh './mvnw clean verify sonar:sonar \
+                -Dsonar.login=77b046129b28048f70eb1789454bc56bee266e57 \
+                -Dsonar.host.url=https://sonarcloud.io/
+                -Dsonar.organization=avsrpavankalyan
+                -Dsonar.projectKey=jenkinsdeploy'
             }
         }
     }
