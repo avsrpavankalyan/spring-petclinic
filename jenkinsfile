@@ -44,7 +44,7 @@ pipeline {
         }
         stage(package) {
             tools {
-                     jdk 'JDK_17_VERSION'
+                jdk 'JDK_17_VERSION'
             }         
             steps {
                 rtMavenRun (
