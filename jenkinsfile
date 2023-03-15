@@ -44,6 +44,9 @@ pipeline {
         }
         stage(package) {
             steps {
+                 tools {
+                jdk 'JDK_17_VERSION'
+            }
                 rtMavenRun (
                     tool: 'MAVEN_VERSION_3.9.0',
                     pom: 'pom.xml',
