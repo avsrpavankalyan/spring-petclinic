@@ -15,10 +15,50 @@ pipeline {
         stage(snoarcloud) {
             steps {
                 sh './mvnw clean verify sonar:sonar \
-                -Dsonar.login=37b604e0b3459972b95cf83deb3cb0ef04d5f3de \
+                -Dsonar.login=9d979eceb08f4ed903213f4b311a340af84bdf36 \
                 -Dsonar.host.url=https://sonarcloud.io \
-                -Dsonar.organization=Sonar_Cloud_Org \
-                -Dsonar.projectKey=onar_Cloud_Org_Project'
+                -Dsonar.organization=sonar-cloud-org \
+                -Dsonar.projectKey=sonar-cloud-org_project'
+            }
+        }
+        stage(Artifacotory configuration) {
+            steps {
+                rtServer (
+                    id: "ARTIFACTORY_SERVER",
+                    url: 'https://jfrogjenkinstask.jfrog.io//artifactory',
+                    credentialsId: 'Jfrog_ID'
+                )
+                 rtMavenDeployer (
+                    id: "MAVEN_DEPLOYER",
+                    serverId: "ARTIFACTORY_SERVER",
+                    releaseRepo: 'libs-release',
+                    snapshotRepo: 'libs-snapshot'
+                )
+                 rtMavenResolver (
+                    id: "MAVEN_RESOLVER",
+                    serverId: "ARTIFACTORY_SERVER",
+                    releaseRepo: 'libs-release',
+                    snapshotRepo: 'libs-snapshot'
+                )
+            }
+        }
+        stage('package') {
+            steps {
+                tools {
+                    jdk 'JDK_17_VERSION'
+                }
+            }
+            steps {
+                 rtMavenRun (
+                    tool: 'MAVEN_VERSION_3.9.0',
+                    pom: 'pom.xml',
+                    goals: 'clean install',
+                    deployerId: "MAVEN_DEPLOYER"
+                )
+                 rtPublishBuildInfo (
+                    serverId: "ARTIFACTORY_SERVER"
+                )
+                //sh "mvn ${params.MAVEN_GOAL}"
             }
         }
     }
