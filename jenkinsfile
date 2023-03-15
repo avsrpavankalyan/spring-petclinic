@@ -15,10 +15,10 @@ pipeline {
         stage(snoarcloud) {
             steps {
                 sh './mvnw clean verify sonar:sonar \
-                -Dsonar.login=9d979eceb08f4ed903213f4b311a340af84bdf36 \
+                -Dsonar.login=3ac90155f6785fe70a64786e7618ee2d77fbae5a \
                 -Dsonar.host.url=https://sonarcloud.io \
-                -Dsonar.organization=sonar-cloud-org \
-                -Dsonar.projectKey=sonar-cloud-org_project'
+                -Dsonar.organization=kalyanKR \
+                -Dsonar.projectKey=sonar-kalyanKR_project'
             }
         }
         stage(jfrog) {
@@ -26,16 +26,16 @@ pipeline {
                 rtServer (
                     id: "ARTIFACTORY_SERVER",
                     url: 'https://jfrogjenkinstask.jfrog.io//artifactory',
-                    credentialsId: 'Jfrog_ID'
+                    credentialsId: 'JFROG_ID'
                 )
                  rtMavenDeployer (
-                    id: "MAVEN_DEPLOYER",
+                    id: "JFROG_ID",
                     serverId: "ARTIFACTORY_SERVER",
                     releaseRepo: 'libs-release',
                     snapshotRepo: 'libs-snapshot'
                 )
                  rtMavenResolver (
-                    id: "MAVEN_RESOLVER",
+                    id: "JFROG_ID",
                     serverId: "ARTIFACTORY_SERVER",
                     releaseRepo: 'libs-release',
                     snapshotRepo: 'libs-snapshot'
@@ -48,7 +48,7 @@ pipeline {
             }         
             steps {
                 rtMavenRun (
-                    tool: 'MAVEN_VERSION_3.9.0',
+                    tool: 'MAVEN_VERSION',
                     pom: 'pom.xml',
                     goals: 'clean install',
                     deployerId: "MAVEN_DEPLOYER",
