@@ -21,7 +21,7 @@ pipeline {
                 -Dsonar.projectKey=sonar-cloud-org_project'
             }
         }
-        stage( jfrog ) {
+        stage(jfrog) {
             steps {
                 rtServer (
                     id: "ARTIFACTORY_SERVER",
@@ -42,10 +42,10 @@ pipeline {
                 )
             }
         }
-        stage('package') {
+        stage(package) {
             steps {
                 tools {
-                    jdk 'JDK_17_VERSION'
+                    jdk'JDK_17_VERSION'
                 }
             }
             steps {
