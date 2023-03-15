@@ -44,21 +44,13 @@ pipeline {
         }
         stage(package) {
             steps {
-                tools {
-                    jdk'JDK_17_VERSION'
-                }
-            }
-            steps {
-                 rtMavenRun (
-                    tool: 'MAVEN_VERSION_3.9.0',
-                    pom: 'pom.xml',
+                rtMavenRun (
+                    tool: MAVEN_VERSION_3.9.0,
+                    pom: 'maven-examples/maven-example/pom.xml',
                     goals: 'clean install',
-                    deployerId: "MAVEN_DEPLOYER"
+                    deployerId: "MAVEN_DEPLOYER",
+                    resolverId: "MAVEN_RESOLVER"
                 )
-                 rtPublishBuildInfo (
-                    serverId: "ARTIFACTORY_SERVER"
-                )
-                //sh "mvn ${params.MAVEN_GOAL}"
             }
         }
     }
