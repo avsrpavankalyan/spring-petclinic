@@ -15,10 +15,10 @@ pipeline {
         stage(snoarcloud) {
             steps {
                 sh './mvnw clean verify sonar:sonar \
-                -Dsonar.login=37b604e0b3459972b95cf83deb3cb0ef04d5f3de \
+                -Dsonar.login=b6ffadb1e33b4c6eb12008c31f06d1589a1be5ab \
                 -Dsonar.host.url=https://sonarcloud.io \
-                -Dsonar.organization=Sonar_Cloud_Org \
-                -Dsonar.projectKey=onar_Cloud_Org_Project'
+                -Dsonar.organization=kalyankr \
+                -Dsonar.projectKey=kalyankr_project'
             }
         }
     }
